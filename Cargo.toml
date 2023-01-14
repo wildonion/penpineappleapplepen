@@ -1,0 +1,15 @@
+[package]
+name = "ppap"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[lib]
+# libraries don't have entry points, you can't run them,they're used for functionality sharing like binding a .wasm into js codes
+# we need lib.rs and crate type of cdylib for none binary like .wasm, .so, .dylib and .dll files or for tests
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
