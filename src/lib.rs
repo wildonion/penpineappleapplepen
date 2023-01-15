@@ -1,7 +1,7 @@
 
 
 // proxy, firewall, vpns, packet sniffer and load balancer like pingora, HAproxy, v2ray and wireshark for all layers
-// • riker actor
+// • tokio, zmq and riker actor
 // • v2ray and tor protocols
 // • decompress encoded packet 
 // • cpu task scheduling, 
@@ -11,3 +11,4 @@
 // • iptables
 // • zmq pub/sub
 // • simd divide and conquer based vectorization
+// • language binding
