@@ -1,7 +1,11 @@
 
 
 
+// we can build zmq using tokio socket actors 
+// and build libp2p and rpc system 
+// using zmq pub/sub sockets  
 
+// in our proxy zmq subscribers are node instances that must be balanced 
 
 // proxy, firewall, vpns, packet sniffer and load balancer like pingora, nginx, HAproxy, v2ray and wireshark for all layers
 // • tokio, zmq and riker actor
@@ -12,6 +16,6 @@
 // • vector clock, 
 // • event loop
 // • iptables
-// • zmq pub/sub
+// • zmq pub/sub with borsh serialization 
 // • simd divide and conquer based vectorization
 // • language binding
