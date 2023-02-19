@@ -2,8 +2,8 @@
 // https://github.com/wildonion/cs-concepts
 // https://connectivity.libp2p.io/
 
-// a realtime node monitoring using zmq 
-// to manage the load of each instance 
+// a realtime node monitoring and packet sniffing tools
+// using zmq to manage the load of each instance 
 // in realtime
 
 // we can build zmq using tokio socket actors 
