@@ -14,7 +14,7 @@
 
 // proxy, firewall, vpns, packet sniffer and load balancer like pingora, nginx, HAproxy, v2ray and wireshark for all layers
 // • tokio channels + worker green threadpool + event loop, zmq and riker actor concepts
-// • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic 
+// • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 // • rpc capnp to communicate between each balancer
 // • decompress encoded packet 
 // • cpu task scheduling, 
