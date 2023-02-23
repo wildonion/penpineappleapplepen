@@ -25,6 +25,11 @@
 // • zmq pub/sub with borsh serialization 
 // • simd divide and conquer based vectorization
 // • language binding
+// • reverse proxy for NAT traversal implemented in Rust
+// • implement DNS Server in Rust    
+// • google Search Crawler implemented in Rust (scalable and secure)
+// • caching server implemented in Rust like redis
+// • scalable and Secure Firewall implemented in Rust
 
 
 use serde::{Deserialize, Serialize};
