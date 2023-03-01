@@ -13,6 +13,16 @@
 // using zmq pub/sub sockets  
 
 
+// streaming of encoded borsh and serde io future obejcts over 
+//  libp2p gossipsub + kademlia, noise, tcp, udp, ws, 
+//  zmq pubsub and rpc capnp pubsub for actor message queues using
+//      riker concepts for message
+// 	    tokio::spawn → green threadpool
+// 	    tokio::channels → message queue channels
+// 	    tokio::select → event loop
+// also send notif (publish topic) to other pods if another one gets back online
+
+
 // proxy, firewall, vpns, packet sniffer and load balancer like pingora, nginx, HAproxy, v2ray and wireshark for all layers
 // • tokio channels + worker green threadpool + event loop, zmq and riker actor concepts
 // • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
