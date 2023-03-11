@@ -32,7 +32,7 @@
 // • weighted round robin dns, 
 // • vector clock, 
 // • event loop
-// • iptables
+// • iptables and ssh tunneling
 // • zmq pub/sub with borsh serialization 
 // • simd divide and conquer based vectorization
 // • language binding
