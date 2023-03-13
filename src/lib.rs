@@ -23,7 +23,11 @@
 // also send notif (publish topic) to other pods if another one gets back online or finding online pods like mmq
 
 
-// proxy, firewall, vpns, packet sniffer and load balancer like pingora, nginx, HAproxy, v2ray and wireshark for all layers
+// spread requests between node server instances 
+// using different balancing algorithms and pubsub pattern 
+// to manage the total load of the VPS 
+
+// proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, HAproxy, v2ray and wireshark for all layers
 // • tokio channels + worker green threadpool + event loop, zmq and riker actor concepts
 // • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 // • rpc capnp to communicate between each balancer
