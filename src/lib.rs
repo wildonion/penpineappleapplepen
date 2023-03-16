@@ -21,6 +21,13 @@
 // 	    tokio::channels → message queue channels
 // 	    tokio::select → event loop
 // also send notif (publish topic) to other pods if another one gets back online or finding online pods like mmq
+// code: while let Ok((stream, addr)) = listener.accept().await{
+//          tokio::spawn(async move{
+//              streaming of IO future objects through redis, hyper, ricker, 
+//              tokio tcp and udp and quic and muxer, libp2p stacks, zmq, rpc, ws and gql 
+//              for realtiming pubsub streaming like push notif and chatapp
+//          });
+//      }
 
 
 // spread requests between node server instances 
