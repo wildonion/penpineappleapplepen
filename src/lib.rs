@@ -13,6 +13,16 @@
 // using zmq pub/sub sockets  
 
 
+// client -----gql/ws/webrtc.rs [p2p]----- server actors 
+//                                             tokio tls, ws server, rcp capnp pubsub server, gql pubsub server, redis pubsub client, 
+//                                             zmq pubsub server, mongodb (libp2p stacks(muxer, noise, quic, tcp, gossipsub, kademlia, ws, webrtc))
+
+
+// ➙ tokio tcp, udp streaming future IO objects and select eventloop, spawn, scheduler, channels 
+//   (data to share between threads using tokio channels must be Arc<Mutex<Data>> + Send + Sync + 'static
+//    means it must be cloned or referenced also must be synced to mutate it and if it's not we can put it 
+//    inside Mutext) to build multi worker and thread based proxy and server like nginx and hyper 
+
 // streaming of encoded borsh and serde io future obejcts over 
 //  libp2p gossipsub + kademlia, noise, tcp, udp, ws, 
 //  redis, zmq pubsub and rpc capnp pubsub for actor message queues using:
@@ -34,6 +44,7 @@
 // using different balancing algorithms and pubsub pattern 
 // to manage the total load of the VPS 
 
+// ➙ public key digital signature ring ed25519 verification for updating app and server verification apis 
 // proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, HAproxy, v2ray and wireshark for all layers
 // • tokio channels + worker green threadpool + event loop, zmq and riker actor concepts
 // • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
@@ -76,17 +87,28 @@ pub struct Node{ //// this contains server info
     pub peer_id: String, 
     pub cost_per_api_call: u128, //// this is based on the load of the weights
     pub init_at: i64,
-    pub weights: Option<Vec<Weight>>,
+    pub weights: Option<Vec<Weight>>, //// load of requests
 }
 
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-
 pub struct Container{
     pub id: String,
+    pub balancer: Balancer::RoundRobin
     pub nodes: Vec<Node>,
 }
 
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub enum Balancer{
+    pub RoundRobin,
+    pub LeastConnection,
+    pub WeightedLeastConnection,
+    pub WeightedResponseTime,
+    pub ResourceBased,
+    pub WeightedRoundRobin,
+    pub IpHash,
+}
 
 
 //// TODO - 
