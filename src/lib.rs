@@ -44,25 +44,27 @@
 // using different balancing algorithms and pubsub pattern 
 // to manage the total load of the VPS 
 
+// ➙ we can setup exit codes with enum to know which error caused the program to stopped when using Box<dyn Error> which can be implemented for the type that will cause the error at runtime 
 // ➙ public key digital signature ring ed25519 verification for updating app and server verification apis 
-// proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, HAproxy, v2ray and wireshark for all layers
-// • tokio channels + worker green threadpool + event loop, zmq and riker actor concepts
-// • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
-// • rpc capnp to communicate between each balancer
-// • decompress encoded packet 
-// • cpu task scheduling, 
-// • weighted round robin dns, 
-// • vector clock, 
-// • event loop
-// • iptables and ssh tunneling
-// • zmq pub/sub with borsh serialization 
-// • simd divide and conquer based vectorization
-// • language binding
-// • reverse proxy for NAT traversal implemented in Rust
-// • implement DNS Server in Rust    
-// • google Search Crawler implemented in Rust (scalable and secure)
-// • caching server implemented in Rust like redis
-// • scalable and Secure Firewall implemented in Rust
+// ➙ proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, HAproxy, v2ray and wireshark for all layers
+//    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp and noise and tokio tls
+//    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
+//    • rpc capnp to communicate between each balancer
+//    • decompress encoded packet 
+//    • cpu task scheduling, 
+//    • vod streaming
+//    • weighted round robin dns, 
+//    • vector clock, 
+//    • event loop
+//    • iptables and ssh tunneling
+//    • zmq pub/sub with borsh serialization 
+//    • simd divide and conquer based vectorization
+//    • language binding
+//    • reverse proxy for NAT traversal implemented in Rust
+//    • implement DNS Server in Rust    
+//    • google Search Crawler implemented in Rust (scalable and secure)
+//    • caching server implemented in Rust like redis
+//    • scalable and Secure Firewall implemented in Rust
 
 
 use serde::{Deserialize, Serialize};
