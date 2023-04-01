@@ -13,9 +13,30 @@
 // using zmq pub/sub sockets  
 
 
-// client -----gql/ws/webrtc.rs [p2p]----- server actors 
-//                                             tokio tls, ws server, rcp capnp pubsub server, gql pubsub server, redis pubsub client, 
-//                                             zmq pubsub server, mongodb (libp2p stacks(muxer, noise, quic, tcp, gossipsub, kademlia, ws, webrtc))
+
+// gql ws client 
+//     |
+//     |
+//     ------riker and tokio server (select!{}, spawn(), job q channels) -------
+//                                                                             |
+//                                                                tlps over noise and tokio tls
+//                                                                             |
+//                                                                             -----
+//                                                                                 p2p stacks
+//                                                                                     - kademlia
+//                                                                                     - gossipsub over tcp and quic
+//                                                                                     - noise protocol
+//                                                                                     - ws and webrtc
+//                                                                                     - muxer
+//                                                                                 quic and udp
+//                                                                                 tcp 
+//                                                                                 rpc capnp pubsub 
+//                                                                                 zmq pubsub
+//                                                                                 gql subs
+//                                                                                 ws (push notif, chatapp, realtime monit)
+//                                                                                 connections that implement AsyncWrite and AsyncRead traits for reading/writing IO future objects 
+//                                                                                 redis client + mongodb
+
 
 
 // ➙ tokio tcp, udp streaming future IO objects and select eventloop, spawn, scheduler, channels 
@@ -44,9 +65,16 @@
 // using different balancing algorithms and pubsub pattern 
 // to manage the total load of the VPS 
 
+
+// ngrok process: [https://docs.rs/ngrok/latest/ngrok/]
+//  ➙ first it'll open a port on local machine 
+//  ➙ then it will create a session on that port with a random dns on its servers 
+//  ➙ finally it forwars all the traffic to that session to the local port it created
+
+
 // ➙ we can setup exit codes with enum to know which error caused the program to stopped when using Box<dyn Error> which can be implemented for the type that will cause the error at runtime 
 // ➙ public key digital signature ring ed25519 verification for updating app and server verification apis 
-// ➙ proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, HAproxy, v2ray and wireshark for all layers
+// ➙ proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, ngrok, HAproxy, v2ray and wireshark for all layers
 //    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp and noise and tokio tls
 //    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 //    • rpc capnp to communicate between each balancer
