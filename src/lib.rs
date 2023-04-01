@@ -22,6 +22,7 @@
 //                                                                tlps over noise and tokio tls
 //                                                                             |
 //                                                                             -----
+//                                                                                 hyper
 //                                                                                 p2p stacks
 //                                                                                     - kademlia
 //                                                                                     - gossipsub over tcp and quic
@@ -66,7 +67,7 @@
 // to manage the total load of the VPS 
 
 
-// ngrok process: [https://docs.rs/ngrok/latest/ngrok/]
+// ngrok process: [https://docs.rs/ngrok/latest/ngrok/] || [https://ngrok.com/docs/using-ngrok-with/rust/]
 //  ➙ first it'll open a port on local machine 
 //  ➙ then it will create a session on that port with a random dns on its servers 
 //  ➙ finally it forwars all the traffic to that session to the local port it created
