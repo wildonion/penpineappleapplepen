@@ -19,7 +19,7 @@
 //     |
 //     ------riker and tokio server (select!{}, spawn(), job q channels) -------
 //                                                                             |
-//                                                                tlps over noise and tokio-rustls
+//                                                           tlps over noise-protocol and tokio-rustls
 //                                                                             |
 //                                                                             -----
 //                                                                                 hyper
@@ -73,16 +73,18 @@
 //  ➙ finally it forwars all the traffic to that session to the local port it created
 
 
-// with tokio-rustls or noise-protocol we can create a secured communication 
-// streaming channel between our ws, tcp or udp servers and clients based on 
-// the created certificate and the key
+// with simple-hyper-server-tls, tokio-rustls and noise-protocol we can create a secured communication 
+// streaming channel between our hyper, ws, tcp or udp servers and clients based on the created certificate 
+// and the key by implementing the tls protocols for the raw underlying 
+// of tcp and udp socket stream of io future objects
 
 
 // ➙ we can setup exit codes with enum to know which error caused the program to stopped when using Box<dyn Error> which can be implemented for the type that will cause the error at runtime 
 // ➙ public key digital signature ring ed25519 verification for updating app and server verification apis 
 // ➙ proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, ngrok, HAproxy, v2ray and wireshark for all layers
-//    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp and noise and tokio-rustls
+//    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp
 //    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
+//    • simple-hyper-server-tls, noise-protocol and tokio-rustls to implement ssl protocols and make a secure channel for the underlying raw socket streams
 //    • rpc capnp to communicate between each balancer
 //    • decompress encoded packet using borsh and serde 
 //    • cpu task scheduling, 
