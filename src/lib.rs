@@ -79,7 +79,7 @@
 //    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp and noise and tokio tls
 //    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 //    • rpc capnp to communicate between each balancer
-//    • decompress encoded packet 
+//    • decompress encoded packet using borsh and serde 
 //    • cpu task scheduling, 
 //    • vod streaming
 //    • weighted round robin dns, 
@@ -89,7 +89,7 @@
 //    • zmq pub/sub with borsh serialization 
 //    • simd divide and conquer based vectorization
 //    • language binding
-//    • reverse proxy for NAT traversal implemented in Rust
+//    • reverse proxy for NAT traversal implemented in Rust based macros using ntm repo
 //    • implement DNS Server in Rust    
 //    • google Search Crawler implemented in Rust (scalable and secure)
 //    • caching server implemented in Rust like redis
