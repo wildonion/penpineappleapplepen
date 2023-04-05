@@ -17,26 +17,26 @@
 // gql ws client 
 //     |
 //     |
-//     ------riker and tokio server (select!{}, spawn(), job q channels) -------
+//     ------riker and tokio server (select!{}, spawn(), jobq channels) -------
 //                                                                             |
-//                                                           tlps over noise-protocol and tokio-rustls
+//                                                     sharded tlps over noise-protocol and tokio-rustls
 //                                                                             |
-//                                                                             -----
-//                                                                                 hyper
-//                                                                                 p2p stacks
-//                                                                                     - kademlia
-//                                                                                     - gossipsub over tcp and quic
-//                                                                                     - noise protocol
-//                                                                                     - ws and webrtc
-//                                                                                     - muxer
-//                                                                                 quic and udp
-//                                                                                 tcp 
-//                                                                                 rpc capnp pubsub 
-//                                                                                 zmq pubsub
-//                                                                                 gql subs
-//                                                                                 ws (push notif, chatapp, realtime monit)
-//                                                                                 connections that implement AsyncWrite and AsyncRead traits for reading/writing IO future objects 
-//                                                                                 redis client + mongodb
+//                                                                             ----- sharded instances -----
+//                                                                                         hyper
+//                                                                                         p2p stacks
+//                                                                                             - kademlia
+//                                                                                             - gossipsub over tcp and quic
+//                                                                                             - noise protocol
+//                                                                                             - ws and webrtc
+//                                                                                             - muxer
+//                                                                                         quic and udp
+//                                                                                         tcp 
+//                                                                                         rpc capnp pubsub 
+//                                                                                         zmq pubsub
+//                                                                                         gql subs
+//                                                                                         ws (push notif on data changes, chatapp, realtime monit, webhook setups, mmq and order matching engine)
+//                                                                                         connections that implement AsyncWrite and AsyncRead traits for reading/writing IO future objects 
+//                                                                                         redis client pubsub + mongodb
 
 
 
