@@ -85,6 +85,7 @@
 //    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp
 //    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 //    • simple-hyper-server-tls, noise-protocol and tokio-rustls to implement ssl protocols and make a secure channel for the underlying raw socket streams
+//    • gateway and proxy using hyper: https://github.com/hyperium/hyper/tree/master/examples
 //    • rpc capnp to communicate between each balancer
 //    • decompress encoded packet using borsh and serde 
 //    • cpu task scheduling, 
