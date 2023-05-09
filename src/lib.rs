@@ -121,7 +121,15 @@
 //    • caching server implemented in Rust like redis
 //    • scalable and Secure Firewall implemented in Rust
 
-
+/*
+cloudflare warp vpn
+    • boringtun protocol which is based on wireguard protocol
+    • uses noise protocol with ed25519 encryption
+    • 1111 dns based protocol 
+    • udp and quic for packet sending   
+    • argo routing to send packets to cloudflare gateways
+*/
+    
 use serde::{Deserialize, Serialize};
 use borsh::{BorshDeserialize, BorshSerialize};
 
