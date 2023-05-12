@@ -128,6 +128,7 @@ cloudflare warp vpn
     • 1111 dns based protocol 
     • udp and quic for packet sending   
     • argo routing to send packets to cloudflare gateways
+    • ed25519 digital signature pubkey with chacha20 in noise protocol for making vpn
 */
     
 use serde::{Deserialize, Serialize};
