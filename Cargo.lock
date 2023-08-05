@@ -586,6 +586,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "is_type"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fee7cda167bfafe6eb1c70926de545028f3169c9a8bcfa6db9d53f67aab2f3ec"
+
+[[package]]
 name = "itoa"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -820,6 +826,7 @@ dependencies = [
  "env_logger 0.10.0",
  "futures-util",
  "hex",
+ "is_type",
  "log",
  "log4rs",
  "once_cell",
