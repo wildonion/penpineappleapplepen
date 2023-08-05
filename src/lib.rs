@@ -110,20 +110,20 @@ pub struct Node{ //// this contains server info
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Container{
     pub id: String,
-    pub balancer: Balancer::RoundRobin
+    pub balancer: Balancer,
     pub nodes: Vec<Node>,
 }
 
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum Balancer{
-    pub RoundRobin,
-    pub LeastConnection,
-    pub WeightedLeastConnection,
-    pub WeightedResponseTime,
-    pub ResourceBased,
-    pub WeightedRoundRobin,
-    pub IpHash,
+    RoundRobin,
+    LeastConnection,
+    WeightedLeastConnection,
+    WeightedResponseTime,
+    ResourceBased,
+    WeightedRoundRobin,
+    IpHash,
 }
 
 
