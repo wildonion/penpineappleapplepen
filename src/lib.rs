@@ -2,6 +2,7 @@
 // https://github.com/wildonion/cs-concepts
 // https://connectivity.libp2p.io/
 // https://blog.cloudflare.com/rust-nginx-module/
+// https://github.com/wildonion/uniXerr/blob/master/infra/valhalla/coiniXerr/src/tlps/p2p.pubsub.rs
 
 // a realtime node monitoring and packet sniffing tools
 // using zmq to manage the load of each instance 
@@ -65,7 +66,7 @@
 //    • zmq pub/sub with borsh serialization 
 //    • simd divide and conquer based vectorization
 //    • language binding
-//    • reverse proxy for NAT traversal implemented in Rust based macros using ntm repo
+//    • reverse proxy for NAT traversal implemented in Rust based macros
 //    • implement DNS Server in Rust    
 //    • google Search Crawler implemented in Rust (scalable and secure)
 //    • caching server implemented in Rust like redis
