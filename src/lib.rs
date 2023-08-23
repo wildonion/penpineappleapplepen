@@ -52,7 +52,7 @@
 // ➙ we can setup exit codes with enum to know which error caused the program to stopped when using Box<dyn Error> which can be implemented for the type that will cause the error at runtime 
 // ➙ public key digital signature ring ed25519 verification for updating app and server verification apis 
 // ➙ bpf based proxy, firewall, vpns, packet sniffer and load balancer like pingora, docker networking, nginx, ngrok, HAproxy, v2ray and wireshark for all layers
-//    • tokio channels + worker green threadpool + event loopg, hyper, riker actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp
+//    • tokio channels + worker green threadpool + event loopg, hyper, actix actor concepts, rpc capnp, zmq, libp2p stacks, ws, tcp and udp
 //    • a p2p based vpn like v2ray and tor using noise protocol, gossipsub, kademlia quic and p2p websocket 
 //    • simple-hyper-server-tls, noise-protocol and tokio-rustls to implement ssl protocols and make a secure channel for the underlying raw socket streams
 //    • gateway and proxy using hyper: https://github.com/hyperium/hyper/tree/master/examples
@@ -149,9 +149,9 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
     into an .elf or .so which contains the 
     BPF bytecode that can be executed from 
     the linux kernel. LLVM13 is needed 
-    to compile BPF bytecode for Rust version
+    to compile BPF bytecode
 */
-pub async fn bpf_loader(){
+pub mod bpf(){
 
     // https://cheats.rs/#behind-the-scenes
     // https://blog.redsift.com/labs/writing-bpf-code-in-rust/
