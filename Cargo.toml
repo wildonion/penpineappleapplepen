@@ -30,6 +30,7 @@ rand_chacha = "0.3.1"
 rust-argon2 = "1"
 borsh = "0.10"
 once_cell = "1.17.1"
+redbpf = "2.3.0"
 
 [lib]
 # libraries don't have entry points, you can't run them,they're used for functionality sharing like binding a .wasm into js codes
