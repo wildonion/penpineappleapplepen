@@ -75,6 +75,42 @@
 //    • scalable and Secure Firewall implemented in Rust
 
 /*
+
+    - actix ws actor event and stream handler/loop using tokio spawn, 
+        select, mpsc, mutex and tcp with redis and libp2p pubsub streams
+    - event and stream handler to handle the incoming async task like ws messages 
+        using actix StreamHandler and tokio tcp 
+    - message handler to handle the message type which is going to 
+        be sent between other actors
+
+
+    ------------------------------------------------
+    networking(actor, ws, redis pubsub and streams):
+    ------------------------------------------------
+        event of async task handler, streamer, loop 
+        inside std::thread::scope and tokio::spawn based 
+        tokio tcp stream or mmq streaming over future 
+        bytes using tokio and ws actor and redis pubsub 
+        and streams by streaming over incoming bytes 
+        inside the tokio gread threadpool and pass them 
+        to other threads using tokio::sync::mpsc, actor, 
+        select, spawn, mutex, pubsub, tcp stream, hex, serding 
+        )to_string vs from utf8)
+        tokio::spawn(async move{
+            while let Ok(data) = streamer.recv().await{
+                /* decode the bytes to a struct; see redis4 repo */
+                let decoded;
+                sender.send(decoded)
+            }
+        });
+
+
+    ws actor stream and event handlers are like:
+        streaming over incoming bytes through the tokio tcp socket 
+        to send them as the async task to tokio green threadpool using
+        tokio spawn to handle them as an event using tokio select event 
+        loop handler
+
 cloudflare warp vpn
     • boringtun protocol which is based on wireguard protocol
     • uses noise protocol with ed25519 encryption
