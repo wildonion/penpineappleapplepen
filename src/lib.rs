@@ -42,7 +42,11 @@
 //  ➙ first it'll open a port on local machine 
 //  ➙ then it will create a session on that port with a random dns on its servers 
 //  ➙ finally it forwards all the traffic to that session to the local port it created
-
+/*
+ngrok and ssh vps will starts a server on a random part then forward all the packets coming from outside to the localhost 
+it's like: 
+outside <---packet---> ngrok or ssh vps server act like proxy <---packet---> localhost
+*/
 
 // with simple-hyper-server-tls, tokio-rustls and noise-protocol we can create a secured communication 
 // streaming channel between our hyper, ws, tcp or udp servers and clients based on the created certificate 
