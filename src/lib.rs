@@ -49,7 +49,7 @@ it's like:
 outside <---packet---> ngrok or ssh vps server act like proxy <---packet---> localhost
 
 
-with simple-hyper-server-tls, tokio-rustls and noise-protocol we can create a secured communication 
+with simple-hyper-server-tls, openssl, tokio-rustls and noise-protocol we can create a secured communication 
 streaming channel between our hyper, ws, tcp or udp servers and clients based on the created certificate 
 and the key by implementing the tls protocols for the raw underlying 
 of tcp and udp socket stream of io future objects
