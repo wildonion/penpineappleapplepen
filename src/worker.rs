@@ -2,17 +2,15 @@
 
 
 
+/* 
 
-
-/////// ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
-///////                worker threadpool implementations from scratch  
-/////// ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
-//// in worker threadpool we'll use tokio jobq channels 
-//// to share and schedule the Arc<Mutex<T>>: Send + Sync + 'static 
-//// between threads.
-
-/*  
-
+⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
+      task handler or worker threadpool implementations from scratch  
+⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
+ in worker threadpool we'll use tokio jobq channels 
+ to share and schedule the Arc<Mutex<T>>: Send + Sync + 'static 
+ to be executed safely and without any race conditions or deadlocks
+ between threads.
 
 
     for worker in 0..10{ //// spawning tokio green threads for 10 workers
