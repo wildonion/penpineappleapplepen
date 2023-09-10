@@ -49,6 +49,7 @@ it's like:
 outside <---packet---> ngrok or ssh vps server act like proxy <---packet---> localhost
 
 
+sha256, sha3, Keccak256 and argon2, multipart, base64
 with simple-hyper-server-tls, openssl, tokio-rustls and noise-protocol we can create a secured communication 
 streaming channel between our hyper, ws, tcp or udp servers and clients based on the created certificate 
 and the key by implementing the tls protocols for the raw underlying 
