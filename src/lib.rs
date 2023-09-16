@@ -21,7 +21,7 @@ to manage the total load of the VPS also we can build zmq
 using tokio socket actors and build libp2p and rpc system 
 using zmq pub/sub sockets  
 
-
+codec like serde, borsh and capnp and 
 streaming of encoded borsh and serde io future obejcts over 
  libp2p gossipsub + kademlia, noise, tcp, udp, ws, 
  redis, zmq pubsub and rpc capnp pubsub for actor message queues using:
