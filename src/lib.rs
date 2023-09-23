@@ -21,32 +21,37 @@ to manage the total load of the VPS also we can build zmq
 using tokio socket actors and build libp2p and rpc system 
 using zmq pub/sub sockets  
 
-codec like serde, borsh and capnp and 
-streaming of encoded borsh and serde io future obejcts over 
- libp2p gossipsub + kademlia, noise, tcp, udp, ws, 
- redis, zmq pubsub and rpc capnp pubsub for actor message queues using:
-     riker concepts for message
-	    tokio::spawn → green threadpool
-	    tokio::channels → message queue channels
-	    tokio::select → event loop
-also send notif (publish topic) to other pods if another one gets back online or finding online pods like mmq
-code: while let Ok((stream, addr)) = listener.accept().await{
-         tokio::spawn(async move{
-             streaming of IO future objects through redis, hyper, ricker, 
-             tokio tcp and udp and quic and muxer, libp2p stacks, zmq, rpc, ws and gql 
-             for realtiming pubsub streaming like push notif and chatapp
-         });
-     }
 
+codec like serde, borsh and capnp also send notif (publish backonline topic) 
+to other pods if another one gets back online or finding online pods 
+using following flow:
+    - actix ws actor event and stream handler/loop using tokio spawn, 
+        select, mpsc, mutex and tcp with redis and libp2p pubsub streams
+    - event and stream handler to handle the incoming async task like ws 
+        messages packets using actix StreamHandler and tokio tcp 
+    - message handler to handle the message type which is going to 
+        be sent between other actors and other parts of the app
+    - ws actor stream and event handlers are like:
+        streaming over incoming bytes through the tokio tcp socket 
+        to send them as the async task to tokio green threadpool using
+        tokio spawn to handle them as an event using tokio select event 
+        loop handler
 
-ngrok process: [https://docs.rs/ngrok/latest/ngrok/] || [https://ngrok.com/docs/using-ngrok-with/rust/]
- ➙ first it'll open a port on local machine 
- ➙ then it will create a session on that port with a random dns on its servers 
- ➙ finally it forwards all the traffic to that session to the local port it created
+	>>>> look start_tcp_server api in gem <<<< 
+	streaming over incoming encoded io future object of utf8 bytes 
+	to decode them into structs to mutate them concurrently by moving
+	them between tokio threads using jobq channels and mutex 
+			    or 
+	event of async task handler, streamer, loop 
+	inside std::thread::scope and tokio::spawn based 
+	tokio tcp stream or mmq streaming over future 
+	bytes using tokio and ws actor and redis pubsub 
+	and streams by streaming over incoming bytes 
+	inside the tokio gread threadpool and pass them 
+	to other threads using tokio::sync::mpsc, actor, 
+	select, spawn, mutex, pubsub, tcp stream, hex, serding 
+	to_string vs from utf8
 
-ngrok and ssh vps will starts a server on a random part then forward all the packets coming from outside to the localhost 
-it's like: 
-outside <---packet---> ngrok or ssh vps server act like proxy <---packet---> localhost
 
 
 sha256, sha3, Keccak256 and argon2, multipart, base64, rustls to load trusted ssl certs from /etc/ssl/certs/ca-certificates.crt 
@@ -79,48 +84,20 @@ of tcp and udp socket stream of io future objects
    • google Search Crawler implemented in Rust (scalable and secure)
    • caching server implemented in Rust like redis
    • scalable and Secure Firewall implemented in Rust
-
-    - actix ws actor event and stream handler/loop using tokio spawn, 
-        select, mpsc, mutex and tcp with redis and libp2p pubsub streams
-    - event and stream handler to handle the incoming async task like ws messages 
-        using actix StreamHandler and tokio tcp 
-    - message handler to handle the message type which is going to 
-        be sent between other actors
-    - ws actor stream and event handlers are like:
-        streaming over incoming bytes through the tokio tcp socket 
-        to send them as the async task to tokio green threadpool using
-        tokio spawn to handle them as an event using tokio select event 
-        loop handler
-
-
-    ------------------------------------------------
-    networking(actor, ws, redis pubsub and streams):
-    ------------------------------------------------
-        event of async task handler, streamer, loop 
-        inside std::thread::scope and tokio::spawn based 
-        tokio tcp stream or mmq streaming over future 
-        bytes using tokio and ws actor and redis pubsub 
-        and streams by streaming over incoming bytes 
-        inside the tokio gread threadpool and pass them 
-        to other threads using tokio::sync::mpsc, actor, 
-        select, spawn, mutex, pubsub, tcp stream, hex, serding 
-        )to_string vs from utf8)
-        tokio::spawn(async move{
-            while let Ok(data) = streamer.recv().await{
-                /* decode the bytes to a struct; see redis4 repo */
-                let decoded;
-                sender.send(decoded)
-            }
-        });
-
-
-cloudflare warp vpn
-    • boringtun protocol which is based on wireguard protocol
-    • uses noise protocol with ed25519 encryption
-    • 1111 dns based protocol 
-    • udp and quic for packet sending   
-    • argo routing to send packets to cloudflare gateways
-    • ed25519 digital signature pubkey with chacha20 in noise protocol for making vpn
+   • ngrok process: [https://docs.rs/ngrok/latest/ngrok/] || [https://ngrok.com/docs/using-ngrok-with/rust/]
+ 	➙ first it'll open a port on local machine 
+ 	➙ then it will create a session on that port with a random dns on its servers 
+ 	➙ finally it forwards all the traffic to that session to the local port it created
+	➙ ngrok and ssh vps will starts a server on a random part then forward all the packets 
+ 	  coming from outside to the localhost it's like: 
+	  outside <---packet---> ngrok or ssh vps server act like proxy <---packet---> localhost
+   • cloudflare warp vpn
+	    • boringtun protocol which is based on wireguard protocol
+	    • uses noise protocol with ed25519 encryption
+	    • 1111 dns based protocol 
+	    • udp and quic for packet sending   
+	    • argo routing to send packets to cloudflare gateways
+	    • ed25519 digital signature pubkey with chacha20 in noise protocol for making vpn
 */
 
 
