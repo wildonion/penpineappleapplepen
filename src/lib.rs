@@ -10,6 +10,17 @@ https://github.com/wildonion/uniXerr/blob/master/infra/valhalla/coiniXerr/src/tl
 https://github.com/foniod/build-images
 
 
+blockchain distributed algorithms and scheduling tlps:
+        node1 
+          |
+          |
+           ---actix-wss/tokio mutex,select,jobq,spawn,tcp,udp)/rpc-capnp/actix-https
+                libp2p quic,gossipsub,kademlia,noise/redis pubsub strams
+                                |
+                                |
+                                 --- node2
+
+
 a realtime node monitoring and packet sniffing tools
 using zmq to manage the load of each instance 
 in realtime, in our proxy, zmq subscribers are server app 
@@ -51,7 +62,6 @@ using following flow:
 	to other threads using tokio::sync::mpsc, actor, 
 	select, spawn, mutex, pubsub, tcp stream, hex, serding 
 	to_string vs from utf8
-
 
 
 sha256, sha3, Keccak256 and argon2, multipart, base64, rustls to load trusted ssl certs from /etc/ssl/certs/ca-certificates.crt 
@@ -163,14 +173,85 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
 }
 
 
+pub async fn start_tcp_listener(){
+
+// https://github.com/wildonion/redis4
+// more info in start_tcp_listener() api in gem admin access
+	
+#[derive(Default, Serialize, Deserialize, Debug, Clone)]
+pub struct TcpServerData{
+    pub data: String,
+}
+let tcp_server_data = TcpServerData::default();
+let (tcp_msg_sender, mut tcp_msg_receiver) = 
+	tokio::sync::mpsc::channel::<bool>(1024);
+    
+    /* ----------------------------------------- */
+    /* starting a tcp listener in the background */
+    /* ----------------------------------------- */
+
+    let bind_address = format!("0.0.0.0:2323");
+    let mut api_listener = tokio::net::TcpListener::bind(bind_address.as_str()).await;
+    
+    if api_listener.is_err(){
+	resp!{
+	    &[u8], // response data
+	    &[], // response message
+	    TCP_SERVER_ERROR,
+	    StatusCode::EXPECTATION_FAILED, // status code
+	    None::<Cookie<'_>>, // cookie
+	}
+    }
+
+    let api_listener = api_listener.unwrap();
+    info!("➔ 🚀 tcp listener is started at [{}]", bind_address);
+
+    tokio::spawn(async move{
+
+	while let Ok((mut api_streamer, addr)) = api_listener.accept().await{
+	    info!("🍐 new peer connection: [{}]", addr);
+
+	    let tcp_server_data = tcp_server_data.clone();
+
+	    tokio::spawn(async move {
+
+		let mut buffer = vec![0; 1024];
+
+		while match api_streamer.read(&mut buffer).await {
+		    Ok(rcvd_bytes) if rcvd_bytes == 0 => return,
+		    Ok(rcvd_bytes) => {
+    
+			let string_data = std::str::from_utf8(&buffer[..rcvd_bytes]).unwrap();
+			info!("📺 received data from peer: {}", string_data);
+    
+			let send_tcp_server_data = tcp_server_data.data.clone();
+			if let Err(why) = api_streamer.write_all(&send_tcp_server_data.as_bytes()).await{
+			    error!("❌ failed to write to api_streamer; {}", why);
+			    return;
+			} else{
+			    info!("🗃️ sent {}, wrote {} bytes to api_streamer", tcp_server_data.data.clone(), send_tcp_server_data.len());
+			    return;
+			}
+		    
+		    },
+		    Err(e) => {
+			error!("❌ failed to read from api_streamer; {:?}", e);
+			return;
+		    }
+		    
+		}{}
+    
+	    });
+	}{}
+	
+    });
+}
 
 pub async fn race_condition_avoidance(){
 
     /* ---------------------------------------------------------------------- */
     /* ---------------------- RACE CONDITION AVOIDANCE ---------------------- */
     /*  
-        for tcp connection refer to: https://github.com/wildonion/redis4
-
         race conditions means that two threads want to mutate the data 
         at the same time, we have to use mutex so tell the other threads
         wait there is a threads that is trying to mutate this type and 
