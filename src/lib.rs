@@ -11,14 +11,15 @@ https://github.com/foniod/build-images
 
 
 blockchain distributed algorithms and scheduling tlps:
-        node1 
+  multithreaded node/agent/bot1
           |
           |
            ---actix-wss/tokio mutex,select,jobq,spawn,tcp,udp)/rpc-capnp/actix-https
                 libp2p quic,gossipsub,kademlia,noise/redis pubsub strams
+		noise,tokio-rustl,wallexerr,web3
                                 |
                                 |
-                                 --- node2
+                                 --- multithreaded node/agent/bot2
 
 
 a realtime node monitoring and packet sniffing tools
