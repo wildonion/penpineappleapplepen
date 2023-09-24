@@ -11,15 +11,16 @@ https://github.com/foniod/build-images
 
 
 blockchain distributed algorithms and scheduling tlps:
-  multithreaded node/agent/bot1
+> note that agent is an async and multithreaded based clinet 
+   node/agent/bot
           |
           |
            ---actix-wss/tokio mutex,select,jobq,spawn,tcp,udp)/rpc-capnp/actix-https
                 libp2p quic,gossipsub,kademlia,noise/redis pubsub strams
-		noise,tokio-rustl,wallexerr,web3
+			noise,tokio-rustl,wallexerr,web3
                                 |
                                 |
-                                 --- multithreaded node/agent/bot2
+                                 --- node/agent/bot
 
 
 a realtime node monitoring and packet sniffing tools
