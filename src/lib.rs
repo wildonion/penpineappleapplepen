@@ -175,6 +175,47 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
 }
 
 
+pub async fn agent_simulation(){
+
+	/*
+	    interior mutablity, we can mutate the field at runtime
+	    it's usefull for mutating the content data inside an account
+	*/
+	#[derive(Clone)]
+	struct NodeData<'v>(pub std::sync::Arc<tokio::sync::Mutex<&'v [u8]>>); 
+	/* single thread version of NodeData */
+	// struct NodeData<'v>(pub std::rc::Rc<std::cell::RefCell<&'v [u8]>>); 
+	type Job<'validlifetime> = NodeData<'validlifetime>;
+	#[derive(Clone)]
+	struct Task{ /* job can be send between threads safely */
+	    pub task: NodeData<'static>
+	}
+	#[derive(Clone)]
+	struct Agent<'j> where Task: Send + Sync + 'static{
+	    pub jobs: &'j [Task]
+	}
+	impl<'j> Agent<'j>{
+	    async fn execute(&'static mut self) -> Result<(), ()>{
+		let jobs = self.jobs.clone();
+		/* 
+		    accessing element inside array must be done behind pointer cause by accessing
+		    the element we're creating an slice which must be behind pointer cause they have
+		    no fixed size at compile time
+		*/
+		let t = &jobs[0].task.0;
+		tokio::spawn(async move{
+		    let data = *t.lock().await;
+		    // mutate data in here if you can!
+		    // ...
+		});
+	
+		Ok(())
+	    }
+	}
+
+}
+
+
 pub async fn start_tcp_listener(){
 
 // https://github.com/wildonion/redis4
