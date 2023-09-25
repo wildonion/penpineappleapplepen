@@ -23,8 +23,8 @@ blockchain distributed algorithms and scheduling tlps:
                                  --- node/agent/bot
 
 
-a realtime node monitoring and packet sniffing tools
-using zmq to manage the load of each instance 
+a realtime and pluging based node monitoring and packet sniffing tools
+using tokio/redis/actix/zmq to manage the load of each instance 
 in realtime, in our proxy, zmq subscribers are server app 
 node instances that must be balanced by subscribing 
 on the incoming topic from the balancer publishers, like
@@ -177,6 +177,14 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
 
 pub async fn agent_simulation(){
 
+	#[derive(Clone)]
+	struct BuildQueue{
+		pub agent_id: String,
+	}
+	#[derive(Clone)]
+	struct Pipeline{
+		pub pid: String, // keccak256 bits hash of the whole data
+	}
 	/*
 	    interior mutablity, we can mutate the field at runtime
 	    it's usefull for mutating the content data inside an account
@@ -192,7 +200,9 @@ pub async fn agent_simulation(){
 	}
 	#[derive(Clone)]
 	struct Agent<'j> where Task: Send + Sync + 'static{
-	    pub jobs: &'j [Task]
+	    pub aid: String, // keccak256 bist hash of the whole data
+	    pub jobs: &'j [Task],
+	    pub pipeline: PipeLine
 	}
 	impl<'j> Agent<'j>{
 	    async fn execute(&'static mut self) -> Result<(), ()>{
