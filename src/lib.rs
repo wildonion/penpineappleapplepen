@@ -205,7 +205,7 @@ pub async fn agent_simulation(){
 	    pub pipeline: PipeLine
 	}
 	impl<'j> Agent<'j>{
-	    async fn execute(&'static mut self) -> Result<(), ()>{
+	    async fn execute(&'static mut self, new_commit_data: &[u8]) -> Result<(), ()>{
 		let jobs = self.jobs.clone();
 		/* 
 		    accessing element inside array must be done behind pointer cause by accessing
@@ -215,11 +215,57 @@ pub async fn agent_simulation(){
 		let t = &jobs[0].task.0;
 		tokio::spawn(async move{
 		    let data = *t.lock().await;
-		    // mutate data in here if you can!
+		    // mutate data in here with new_commit_data
 		    // ...
 		});
 	
 		Ok(())
+	    }
+
+	    async fn subscribe_to_new_commit(commit_id: &str) -> Result<(), ()>{
+		    
+		let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(15));
+		    tokio::spawn(async move{
+			    
+			    loop{
+
+				/* tick every 15 seconds */
+				interval.tick().await;
+			
+				    // setup async redis subscription process to subscribe to 
+				    // ...
+				    
+				    let get_stream_messages = redis_async_pubsubconn
+					.subscribe(commit_id)
+					.await;
+				    
+				    let Ok(mut get_stream_messages) = get_stream_messages else{
+					    
+					return Err(());
+			
+				    };
+				
+				    /* 
+					iterating through the msg future object streams as they're 
+					coming to the stream channel, we select the some ones
+				    */
+				    while let Some(message) = get_stream_messages.next().await{ 
+	
+					let resp_val = message.unwrap();
+					let stringified_new_commit_topic = String::from_resp(resp_val).unwrap();
+
+					self.execute(stringified_new_commit_topic.as_bytes()).await;
+				    
+				    }
+			   
+		    		}
+	    
+	    		});
+		    
+
+		    Ok(())
+		    
+	    
 	    }
 	}
 
