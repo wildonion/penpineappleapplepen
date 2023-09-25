@@ -24,15 +24,13 @@ blockchain distributed algorithms and scheduling tlps:
 
 
 a realtime and pluging based node monitoring and packet sniffing tools
-using tokio/redis/actix/zmq to manage the load of each instance 
-in realtime, in our proxy, zmq subscribers are server app 
-node instances that must be balanced by subscribing 
-on the incoming topic from the balancer publishers, like
-spread requests between node server instances 
-using different balancing algorithms and pubsub pattern 
-to manage the total load of the VPS also we can build zmq 
-using tokio socket actors and build libp2p and rpc system 
-using zmq pub/sub sockets  
+using tokio/redis/actix/zmq/rpc/libp2p to manage the load of each instance 
+in realtime, in our proxy, zmq subscribers are server app node instances 
+that must be balanced by subscribing on the incoming topic from the balancer 
+publishers, like spread requests between node server instances using different 
+balancing algorithms and pubsub pattern to manage the total load of the VPS 
+also we can build zmq using tokio socket actors and build libp2p and rpc 
+system using zmq pub/sub sockets  
 
 
 codec like serde, borsh and capnp also send notif (publish backonline topic) 
