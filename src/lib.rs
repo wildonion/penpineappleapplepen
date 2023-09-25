@@ -245,16 +245,7 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
 
     let bind_address = format!("0.0.0.0:2323");
     let mut api_listener = tokio::net::TcpListener::bind(bind_address.as_str()).await;
-    
-    if api_listener.is_err(){
-	resp!{
-	    &[u8], // response data
-	    &[], // response message
-	    TCP_SERVER_ERROR,
-	    StatusCode::EXPECTATION_FAILED, // status code
-	    None::<Cookie<'_>>, // cookie
-	}
-    }
+    let (job_sender, mut job_receiver) = tokio::sync::mpsc::channel::<String>(1024);
 
     let api_listener = api_listener.unwrap();
     info!("➔ 🚀 tcp listener is started at [{}]", bind_address);
@@ -264,8 +255,11 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
 	while let Ok((mut api_streamer, addr)) = api_listener.accept().await{
 	    info!("🍐 new peer connection: [{}]", addr);
 
+	    // cloning those types that we want to move them into async move{} scopes
+	    // of tokio::spawn cause tokio::spawn will capture these into its closure scope
 	    let tcp_server_data = tcp_server_data.clone();
-
+	    let job_sender = job_sender.clone();
+		
 	    tokio::spawn(async move {
 
 		let mut buffer = vec![0; 1024];
@@ -275,7 +269,8 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
 		    Ok(rcvd_bytes) => {
     
 			let string_data = std::str::from_utf8(&buffer[..rcvd_bytes]).unwrap();
-			info!("📺 received data from peer: {}", string_data);
+			info!("📺 received data from peer: {}", string_data.clone());
+			job_sender.send(string_data.clone()).await;
     
 			let send_tcp_server_data = tcp_server_data.data.clone();
 			if let Err(why) = api_streamer.write_all(&send_tcp_server_data.as_bytes()).await{
@@ -298,6 +293,21 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
 	}{}
 	
     });
+
+
+    tokio::spawn(async move{
+
+	while let Some(job) = job_receiver.recv().await{
+
+		// we have job in here
+		// ...
+	
+	}
+	    
+    });
+
+
+	
 }
 
 pub async fn race_condition_avoidance(){
