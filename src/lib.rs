@@ -173,17 +173,6 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
 }
 
 
-struct Runtime;
-trait RuntimeExt{}
-struct ByteCode<'b>{
-	pub bytes: &'b [u8]
-};
-struct VirtualMachine<'Exectuor, 'b, Runtime: Send + Sync + 'static, const SIZE: usize>
-	where Runtime: RuntimeExt,
-	ByteCode<'b>: Send + Sync + 'static{
-   pub rt: &'Exectuor Runtime,
-   pub bytecodes: &'b [ByteCode<'b>; SIZE]
-}
 
 pub async fn agent_simulation(){
 
