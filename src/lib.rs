@@ -282,7 +282,7 @@ pub struct TcpServerData{
 }
 let tcp_server_data = TcpServerData::default();
 let (tcp_msg_sender, mut tcp_msg_receiver) = 
-	tokio::sync::mpsc::channel::<bool>(1024);
+	tokio::sync::mpsc::channel::<String>(1024);
     
     /* ----------------------------------------- */
     /* starting a tcp listener in the background */
