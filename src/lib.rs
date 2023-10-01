@@ -230,6 +230,7 @@ pub struct Pod{ //// a pod is a load balancer which can have one or more contain
 
 pub async fn agent_simulation(){
 
+	let new_rt = tokio::runtime::Builder::new_multi_thread();
 	#[derive(Clone)]
 	struct BuildQueue{
 		pub agent_id: String,
