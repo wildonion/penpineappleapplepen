@@ -10,6 +10,10 @@ https://github.com/wildonion/uniXerr/blob/master/infra/valhalla/coiniXerr/src/tl
 https://github.com/foniod/build-images
 
 
+
+event triggering and streaming tlps over image chunks (call next on it and async read/write traits must be used) 
+system using redispubsub streams, tokio(time,spawn,select,mutex,tcp,jobq), actix-ws/http
+
 blockchain distributed algorithms and scheduling tlps:
 > note that agent is an async and multithreaded based clinet 
    node/agent/bot
@@ -162,6 +166,9 @@ use uuid::Uuid;
 */
 
 // note that the data we want to share it between threads must be Send + Sync + 'static
+// eg: Lazy<std::sync::Arc<tokio::sync::Mutex<MapDataStruct>>> + Send + Sync + 'static 
+// as a mutable global data will be shared between apis to mutate it safely 
+// to avoid deadlocks and race conditions
 type Db = HashMap<i32, String>; 
 pub static SHARED_STATE_GLOBAL: Lazy<std::sync::Arc<tokio::sync::Mutex<Db>>> = Lazy::new(||{
     std::sync::Arc::new(tokio::sync::Mutex::new(HashMap::new()))
