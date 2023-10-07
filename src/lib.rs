@@ -119,12 +119,10 @@ of tcp and udp socket stream of io future objects
     
 use serde::{Deserialize, Serialize};
 use borsh::{BorshDeserialize, BorshSerialize};
-mod jobq;
-use jobq::*;
+
 mod acter;
 use acter::*;
-mod workers;
-use workers::*;
+
 use uuid::Uuid;
 
 
