@@ -45,3 +45,19 @@ same fork, avoiding deadlock.
 */
 
 use crate::*;
+
+
+
+
+fn init(){
+
+    struct Fork;
+    let (mutex_fork_request_sender, mut mutex_fork_request_receiver) = 
+        tokio::sync::mpsc::channel::<tokio::sync::Mutex<Fork>>();
+
+    let (rwlock_fork_request_sender, mut rwlock_fork_request_receiver) = 
+        tokio::sync::mpsc::channel::<tokio::sync::RwLock<Fork>>();
+  
+}
+
+
