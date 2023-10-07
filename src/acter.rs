@@ -18,7 +18,15 @@
 //     - jobq like celery and the one inside the rabbitmq and zmq 
 
 
+/*
 
+     actix actors be like:
+     they are smart objects have jobq controller like in workers.rs which have a threadpool 
+     in their schema that can handle async tasks inside their own spawned free thread also 
+     they can communicate with each other through message sending pattern to send signals to 
+     other actors between different parts of the app
+
+*/
 
 
 use crate::*;
