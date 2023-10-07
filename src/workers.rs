@@ -4,6 +4,28 @@
 
 /* 
 
+in actix multithreaded based web server:
+every api is an async task which gets solved inside a free thread of actix server
+thus all the params passed to that api method must be send sync and static and be 
+shreable between threads so we can move them between different parts of the app or 
+threads safely like storage param, every api needs to have a path specified using 
+actix post or get macro and gets registered using config.service() method so actix 
+know what method needs to be executed inside a free thread based on what path or 
+route the design pattern of actix it's like:
+
+fn api_method(req: HttpRequest, shared_storage_data: Storage){} 
+let mut apis = vec![];
+apis.push(api_method);
+
+let server = actix.server::new(10); // start server with 10 workers
+server.run(apis);
+
+    - spawn 10 workers which will be waiting to receive the data constantly from the sender
+    - send each api job through the mpsc channel
+    - recieve the api in execute() method
+    - execute the api in a spawned free thread in execute method
+    
+
 ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
       task handler or worker threadpool implementations from scratch  
 ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
