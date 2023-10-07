@@ -5,15 +5,8 @@
 /* 
 
 
-➔ vector of || async move{} of events for an event manager struct like riker scheduling logic and vector clock schemas and call new event every 5 seconds from vector of event of closures
-➔ every task or batch of tasks from the queue must be solved inside a thread when the receiver is receiving them by awaiting on each iteration and also we have to avoid race condition using Mutex
-➔ tasks can be scheduled at a specific time also they can be broadcasted to a channel
-➔ rabbitmq will be used between two services like vps-es in a pub/sub manner and is based on actor design pattern which uses async task or jobq channel algos like celery algos to share and solve tasks between its actors 
-➔ task queue will be used to manage tasks from the queue inside a free thread selected from the worker threadpool and also it can be used to broadcast and schedule tasks in a pub/sub manner using tokio mpsc channels
-➔ actors use task or job queue channels under the hood like celery which is based on a prod/cons or pub/sub manner to prod tasks and cons tasks from the queue to solve them or schedule them to be executed later by sharing them between threads of the worker threadpool using mpsc channel
-➔ celery will be used for producing and consuming async tasks with a distributed message queues (the one that being used inside the rabbitmq)
-➔ also fix the head of line blocking issue
-
+https://en.wikipedia.org/wiki/Head-of-line_blocking -> fix the head of line blocking issue
+https://github.com/wildonion/cs-concepts
 https://github.com/codepr/tasq
 https://dev.to/zeroassumptions/build-a-job-queue-with-rust-using-aide-de-camp-part-1-4g5m
 https://poor.dev/blog/what-job-queue/
@@ -29,15 +22,12 @@ actors have:
     - task scheduling algos
     - worker threadpool like tokio::spawn()
     - pub sub channels for broadcasting messages and tasks scheduling
-    - jobq like celery and the one inside the rabbitmq and zmq 
+    - jobq like celery and the one inside the rabbitmq and zmq or tokio jobq algos
 and actix actors be like:
 they are smart objects have jobq controller like in workers.rs which have a threadpool 
 in their schema that can handle async tasks inside their own spawned free thread also 
 they can communicate with each other through message sending pattern to send signals to 
-other actors between different parts of the app
-
-
-in actix multithreaded based web server:
+other actors between different parts of the app also in actix multithreaded based web server:
 every api is an async task which gets solved inside a free thread of actix server
 thus all the params passed to that api method must be send sync and static and be 
 shreable between threads so we can move them between different parts of the app or 
@@ -60,15 +50,6 @@ server.run(apis);
 
 
 ...
-
-
-TOKIO MULTITHREADING JOBQ CHANNLE ALGORITHMS
-
-    https://en.wikipedia.org/wiki/Dining_philosophers_problem -> handling race conditions and deadlocks using this algo and semaphore reference counting
-    mpsc: multi-producer, single-consumer channel. Many values can be sent.
-    oneshot: single-producer, single consumer channel. A single value can be sent.
-    broadcast: multi-producer, multi-consumer. Many values can be sent. Each receiver sees every value.
-    watch: single-producer, multi-consumer. Many values can be sent, but no history is kept. Receivers only see the most recent value.
 
 
 ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
