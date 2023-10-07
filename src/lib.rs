@@ -95,6 +95,7 @@ of tcp and udp socket stream of io future objects
    • language binding
    • reverse proxy for NAT traversal implemented in Rust based macros
    • implement DNS Server in Rust (DNS hijacking and spoofing using mitm tools)
+   • a dns server like docker to map the dns to the container ip in host
    • google Search Crawler implemented in Rust (scalable and secure)
    • caching server implemented in Rust like redis
    • scalable and Secure Firewall implemented in Rust
