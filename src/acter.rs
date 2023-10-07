@@ -59,10 +59,16 @@ server.run(apis);
     - execute the api in a spawned free thread in execute method
 
 
-
 ...
 
 
+TOKIO MULTITHREADING JOBQ CHANNLE ALGORITHMS
+
+    https://en.wikipedia.org/wiki/Dining_philosophers_problem -> handling race conditions and deadlocks using this algo and semaphore reference counting
+    mpsc: multi-producer, single-consumer channel. Many values can be sent.
+    oneshot: single-producer, single consumer channel. A single value can be sent.
+    broadcast: multi-producer, multi-consumer. Many values can be sent. Each receiver sees every value.
+    watch: single-producer, multi-consumer. Many values can be sent, but no history is kept. Receivers only see the most recent value.
 
 
 ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ --------- ⚈ 
