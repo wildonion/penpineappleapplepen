@@ -41,6 +41,17 @@ mediator (consumer), who decides who gets which forks. The mediator ensures that
 same fork, avoiding deadlock.
 
 
+since everything in rust must be initiated in main function thus there is not concept of global shared data structure, 
+we can have static and constant but we can't change their contents because doing this is not thread safe and rust won't 
+allow in the first place obviously we can have a mutexed static data which is safe to be mutated in other scopes and 
+threads, also with mpsc jobq channel we can send the data from different parts of the app or threads (multiple producer) 
+and only receive inside a single scope or thread (single consumer) it's obviouse that the sender of the channel must be 
+cloneable since everything and every heap data in rust will be moved by passing into other scopes except stack data which 
+implements Copy trait because rust don't have gc system and it's doing this to avoid having dangling pointer issue in 
+futures. the dining philosopher problem is the algorithm used behind the mutex and rwlock to avoid deadlocks and race 
+conditions during mutating the data inside threadpools likw tokio::spawn() by locking on the mutex to extract the data 
+iniside of in such a way that only one writer thread can write to it but multiple threads can read the content.
+
 
 */
 
