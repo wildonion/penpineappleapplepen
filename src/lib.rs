@@ -52,8 +52,9 @@ using following flow:
         tokio spawn to handle them as an event using tokio select event 
         loop handler
 
-	>>>> look start_tcp_server api in gem <<<< 
+	>>>> look start_tcp_listener() method <<<<
 	streaming over incoming encoded io future object of utf8 bytes 
+ 	using actix actor ws/rpc/tcp/http and tokio(tcp,spawn,jobq mpsc,select,time,mutex,rwlock)
 	to decode them into structs to mutate them concurrently by moving
 	them between tokio threads using jobq channels and mutex 
 			    or 
