@@ -22,6 +22,9 @@ https://google.github.io/comprehensive-rust/exercises/concurrency/dining-philoso
     broadcast: multi-producer, multi-consumer. Many values can be sent. Each receiver sees every value.
     watch: single-producer, multi-consumer. Many values can be sent, but no history is kept. Receivers only see the most recent value.
 
+    -> jobq channel to send async tasks or jobs or closures between multiple threads in a threadpool 
+    -> mutex and rwlock to mutate data without having race conditions and deadlocks
+
 
 Mutex (Mutual Exclusion): Rust's std::sync::Mutex provides mutual exclusion, meaning that at any given time, 
 at most one thread can access the shared data inside the mutex. Relating to the dining philosophers, if each 
@@ -41,6 +44,8 @@ mediator (consumer), who decides who gets which forks. The mediator ensures that
 same fork, avoiding deadlock.
 
 
+based on the fact that multiple immutable pointers and one mutable pointer can't be in a same scope at a same time 
+means only one mutable and multiple immutable pointers in each scope is allowed we have the following rules:
 since everything in rust must be initiated in main function thus there is not concept of global shared data structure, 
 we can have static and constant but we can't change their contents because doing this is not thread safe and rust won't 
 allow in the first place obviously we can have a mutexed static data which is safe to be mutated in other scopes and 
