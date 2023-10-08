@@ -331,7 +331,6 @@ pub async fn agent_simulation(){
 
 pub async fn start_tcp_listener(){
 
-// https://github.com/wildonion/redis4
 // more info in start_tcp_listener() api in gem admin access
 	
 #[derive(Default, Serialize, Deserialize, Debug, Clone)]
@@ -373,7 +372,7 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
     
 			let string_data = std::str::from_utf8(&buffer[..rcvd_bytes]).unwrap();
 			info!("📺 received data from peer: {}", string_data.clone());
-			job_sender.send(string_data.clone()).await;
+			job_sender.send(string_data.to_string()).await;
     
 			let send_tcp_server_data = tcp_server_data.data.clone();
 			if let Err(why) = api_streamer.write_all(&send_tcp_server_data.as_bytes()).await{
@@ -499,7 +498,7 @@ pub async fn race_condition_avoidance(){
 }
 
 
-pub mod bpf(){
+pub mod bpf{
 
 
     /* 
