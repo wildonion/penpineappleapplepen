@@ -354,6 +354,7 @@ let (tcp_msg_sender, mut tcp_msg_receiver) =
 
     tokio::spawn(async move{
 
+	// streaming over incoming bytes to fill the buffer and then map the buffer to structure 
 	while let Ok((mut api_streamer, addr)) = api_listener.accept().await{
 	    info!("🍐 new peer connection: [{}]", addr);
 
